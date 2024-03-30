@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: curamaticdata
+      POSTGRES_USER: curamaticuser
+      POSTGRES_PASSWORD: curamaticpass
+    ports:
+      - "5432:5432"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://curamaticuser:curamaticpass@db:5432/curamaticdata
+    ports:
+      - "8080:8080"
+
+volumes:
+  db_data:
