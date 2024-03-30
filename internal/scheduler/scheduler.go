@@ -1,10 +1,10 @@
-package main
+package scheduler
 
 import (
 	"time"
 )
 
-func scheduleTask(interval time.Duration, task func()) {
+func ScheduleTask(interval time.Duration, task func()) {
 	ticker := time.NewTicker(interval)
 	go func() {
 		for {

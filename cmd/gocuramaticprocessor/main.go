@@ -2,25 +2,22 @@ package main
 
 import (
 	"log"
-	"os"
 	"time"
+
+	"go-curamatic-processor/internal/db"
+	"go-curamatic-processor/internal/notification"
+	"go-curamatic-processor/internal/scheduler"
 )
 
 func main() {
-	// Load configuration (this part is simplified for illustration).
-	dbURL := os.Getenv("DATABASE_URL")
-	if dbURL == "" {
-		log.Fatal("DATABASE_URL environment variable is required")
-	}
-
 	// Initialize the database connection.
-	dbPool, err := InitDB(dbURL)
+	dbPool, err := db.InitDB()
 	if err != nil {
 		log.Fatalf("Unable to connect to database: %v", err)
 	}
-	defer dbPool.Close()
+	defer db.CloseDB(dbPool)
 
-	// Example scheduling task - Adjust the frequency and task as needed.
+	// Weekly task to process FHIR data.
 	scheduler.ScheduleTask(168*time.Hour, func() {
 		err := ProcessFHIRData(dbPool)
 		if err != nil {
@@ -34,7 +31,7 @@ func main() {
 
 // ProcessFHIRData encapsulates the logic to fetch, validate, and insert FHIR data.
 // This is a simplified version. Implement according to your project requirements.
-func ProcessFHIRData(dbPool *DBPool) error {
+func ProcessFHIRData(dbPool *dbPool) error {
 	// Example processing logic. You would replace this with actual calls to fetch and process data.
 	log.Println("Starting to process FHIR data...")
 
