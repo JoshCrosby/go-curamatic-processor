@@ -14,7 +14,7 @@ func main() {
 	}
 
 	// Initialize the database connection.
-	dbPool, err := db.InitDB(dbURL)
+	dbPool, err := InitDB(dbURL)
 	if err != nil {
 		log.Fatalf("Unable to connect to database: %v", err)
 	}
@@ -34,7 +34,7 @@ func main() {
 
 // ProcessFHIRData encapsulates the logic to fetch, validate, and insert FHIR data.
 // This is a simplified version. Implement according to your project requirements.
-func ProcessFHIRData(dbPool *db.DBPool) error {
+func ProcessFHIRData(dbPool *DBPool) error {
 	// Example processing logic. You would replace this with actual calls to fetch and process data.
 	log.Println("Starting to process FHIR data...")
 
@@ -54,7 +54,7 @@ func ProcessFHIRData(dbPool *db.DBPool) error {
 }
 
 // processPatients is a placeholder for the actual data processing logic for patients.
-func processPatients(dbPool *db.DBPool) error {
+func processPatients(dbPool *DBPool) error {
 	// Placeholder for fetch, validate, and insert logic.
 	// In a real application, you'd fetch the data, validate it against your criteria,
 	// and insert the valid records into the database using the db package.
