@@ -1,9 +1,6 @@
 package main
 
 import (
-	"go-curamatic-processor/internal/db"
-	"go-curamatic-processor/internal/notification"
-	"go-curamatic-processor/internal/scheduler"
 	"log"
 	"os"
 	"time"
