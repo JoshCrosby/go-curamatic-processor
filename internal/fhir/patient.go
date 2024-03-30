@@ -1,10 +1,36 @@
 package fhir
 
-// Identifier for a FHIR resource
-type Identifier struct {
-	Use    string `json:"use,omitempty"`
-	System string `json:"system,omitempty"`
-	Value  string `json:"value,omitempty"`
+// Patient represents a FHIR patient resource
+type Patient struct {
+	ResourceType         string           `json:"resourceType"`
+	ID                   string           `json:"id"`
+	Identifier           []Identifier     `json:"identifier,omitempty"`
+	Active               bool             `json:"active,omitempty"`
+	Name                 []HumanName      `json:"name,omitempty"`
+	Telecom              []ContactPoint   `json:"telecom,omitempty"`
+	Gender               string           `json:"gender,omitempty"`
+	BirthDate            string           `json:"birthDate,omitempty"`
+	DeceasedBoolean      bool             `json:"deceasedBoolean,omitempty"`
+	DeceasedDateTime     string           `json:"deceasedDateTime,omitempty"`
+	Address              []Address        `json:"address,omitempty"`
+	MaritalStatus        CodeableConcept  `json:"maritalStatus,omitempty"`
+	Photo                []Attachment     `json:"photo,omitempty"`
+	Contact              []PatientContact `json:"contact,omitempty"`
+	Communication        []Communication  `json:"communication,omitempty"`
+	GeneralPractitioner  []Reference      `json:"generalPractitioner,omitempty"`
+	ManagingOrganization []Reference      `json:"managingOrganization,omitempty"`
+	Link                 []Link           `json:"link,omitempty"`
+}
+
+// PatientContact represents a contact person for the patient
+type PatientContact struct {
+	Relationship []CodeableConcept `json:"relationship,omitempty"`
+	Name         HumanName         `json:"name,omitempty"`
+	Telecom      []ContactPoint    `json:"telecom,omitempty"`
+	Address      Address           `json:"address,omitempty"`
+	Gender       string            `json:"gender,omitempty"`
+	Organization Reference         `json:"organization,omitempty"`
+	Period       Period            `json:"period,omitempty"`
 }
 
 // HumanName represents a person's name with the ability to specify use, text, family, and given names
@@ -22,54 +48,8 @@ type ContactPoint struct {
 	Use    string `json:"use,omitempty"`
 }
 
-// Address for a FHIR resource
-type Address struct {
-	Use        string   `json:"use,omitempty"`
-	Type       string   `json:"type,omitempty"`
-	Text       string   `json:"text,omitempty"`
-	Line       []string `json:"line,omitempty"`
-	City       string   `json:"city,omitempty"`
-	District   string   `json:"district,omitempty"`
-	State      string   `json:"state,omitempty"`
-	PostalCode string   `json:"postalCode,omitempty"`
-	Country    string   `json:"country,omitempty"`
+// Communication represents a language that the patient can communicate in
+type Communication struct {
+	Language  CodeableConcept `json:"language,omitempty"`
+	Preferred bool            `json:"preferred,omitempty"`
 }
-
-// CodeableConcept specifies a coded value with optional coding and text
-type CodeableConcept struct {
-	Coding []Coding `json:"coding,omitempty"`
-	Text   string   `json:"text,omitempty"`
-}
-
-// Coding defines a code with system, version, and code
-type Coding struct {
-	System  string `json:"system,omitempty"`
-	Version string `json:"version,omitempty"`
-	Code    string `json:"code,omitempty"`
-	Display string `json:"display,omitempty"`
-}
-
-// Patient represents a FHIR patient resource
-type Patient struct {
-	ResourceType     string           `json:"resourceType"`
-	ID               string           `json:"id"`
-	Identifier       []Identifier     `json:"identifier,omitempty"`
-	Active           bool             `json:"active,omitempty"`
-	Name             []HumanName      `json:"name,omitempty"`
-	Telecom          []ContactPoint   `json:"telecom,omitempty"`
-	Gender           string           `json:"gender,omitempty"`
-	BirthDate        string           `json:"birthDate,omitempty"`
-	DeceasedBoolean  bool             `json:"deceasedBoolean,omitempty"`
-	DeceasedDateTime string           `json:"deceasedDateTime,omitempty"`
-	Address          []Address        `json:"address,omitempty"`
-	MaritalStatus    CodeableConcept  `json:"maritalStatus,omitempty"`
-	Photo            []Attachment     `json:"photo,omitempty"`
-	Contact          []PatientContact `json:"contact,omitempty"`
-	Communication    []Communication  `json:"communication,omitempty"`
-	// Add other fields as necessary
-}
-
-// Simplified for demonstration, should be expanded to match FHIR specification
-type Attachment struct{}
-type PatientContact struct{}
-type Communication struct{}

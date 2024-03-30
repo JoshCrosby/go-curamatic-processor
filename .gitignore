@@ -1,2 +1,4 @@
 scripts/build_directories.sh
 go.work
+bin
+data
